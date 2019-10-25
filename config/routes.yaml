@@ -1,3 +1,9 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+# Set index (default) Controller
+index:
+    path: /
+    controller: App\Controller\IndexController::index
+
+# Enable annotations in Controller files
+controllers:
+    resource: '../src/Controller/'
+    type:     annotation

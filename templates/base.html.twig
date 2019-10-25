@@ -2,11 +2,30 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>Альфа-Риелт{% block title %}{% endblock %}</title>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <!-- Bootstrap core CSS -->
+        <link href="/asset/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="/asset/css/mdb.min.css" rel="stylesheet">
+        <!-- Your custom styles (optional) -->
+        <link href="/asset/css/style.css" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
+        <!-- JQuery -->
+        <script type="text/javascript" src="/asset/js/jquery-3.4.1.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="/asset/js/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="/asset/js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="/asset/js/mdb.min.js"></script>
+        <!-- Custom JavaScript -->
+        <script type="text/javascript" src="/asset/js/script.js"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
