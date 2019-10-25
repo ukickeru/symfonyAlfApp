@@ -18,24 +18,4 @@ $(document).ready(function() {
         }
     });
 
-    // An example of AJAX JSON query to application
-    $('button#btnExample').on('click', function() {
-
-        var query = JSON.parse('{"queryStr":"123"}');
-
-        $.ajax({
-            url: "/query",
-            method: "POST",
-            dataType: "json",
-            data: query
-        }).done(function( msg ) {
-            console.log('Success');
-            alert( 'Your query is: ' + msg['data'] );
-        }).fail(function( msg ) {
-            console.log('Fail');
-            alert( 'Your query is: ' + msg['data'] );
-        });
-
-    });
-
 });

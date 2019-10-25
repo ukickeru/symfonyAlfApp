@@ -1,20 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center vh-100">
+            <div class="col-lg-auto col-md-auto col-sm-auto text-center">
+                <!-- Default form login -->
+                <form class="text-center border border-light p-5" action="#!">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/symfony/project1/src/Controller/IndexController.php'|file_link(0) }}">src/Controller/IndexController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/symfony/project1/templates/index/index.html.twig'|file_link(0) }}">templates/index/index.html.twig</a></code></li>
-    </ul>
-</div>
+                    <h2 class="mb-5">Альфа-Риелт</h2>
+
+                    <!-- Email -->
+                    <input type="email" id="LoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+
+                    <!-- Name -->
+                    <input type="name" id="LoginFormName" class="form-control mb-4" placeholder="Фамилия и имя" style="display: none;">
+
+                    <!-- Password -->
+                    <input type="password" id="LoginFormPassword" class="form-control mb-4" placeholder="Пароль" style="display: none;">
+
+                    <div class="d-flex justify-content-around">
+                        <div>
+                            <!-- Remember me -->
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+                                <label class="custom-control-label" for="defaultLoginFormRemember">Запомнить меня</label>
+                            </div>
+                        </div>
+                        <div>
+                            <!-- Forgot password -->
+                            <a class="ml-3" href="#" id="forgotEmail">Войти по имени?</a>
+                        </div>
+                    </div>
+
+                    <!-- Sign in button -->
+                    <button class="btn btn-info btn-block my-4 mx-0" type="submit">Войти</button>
+
+                    <!-- Register -->
+                    <p>Нет доступа?
+                        <a class="ml-1" href="">Регистрация</a>
+                    </p>
+
+                </form>
+                <!-- Default form login -->
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
