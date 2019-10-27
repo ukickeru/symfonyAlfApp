@@ -14,3 +14,5 @@ framework:
     #fragments: true
     php_errors:
         log: true
+
+    ide: 'atom://open?url=file://%%f&line=%%l'
