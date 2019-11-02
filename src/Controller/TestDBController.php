@@ -20,6 +20,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 // Entities
 use App\Entity\TestEntity;
 
+// Exceptions
+use Doctrine\DBAL\DBALException;
+use Doctrine\ORM\ORMException;
+use PDOException;
+use Exception;
+
 class TestDBController extends AbstractController
 {
 
@@ -41,6 +47,7 @@ class TestDBController extends AbstractController
                 $role = $request->request->get('role');
                 $action = $request->request->get('action');
                 $entityId = $request->request->get('entityId');
+                $response = ''; // Return to user, used for handle exceptions
 
                 if ( ( $role !== '' ) & ( $role !== 'undefined' ) ) {
 
@@ -56,15 +63,15 @@ class TestDBController extends AbstractController
 
                         if ( $action == 'delete' ) {
 
-                            $this->deleteTestEntity($entityId);
+                            $response = $this->deleteTestEntity($role, $entityId);
 
-                            return new JsonResponse(array('data' => 'For user "'.$role.'" was delete entity #'.$entityId));
+                            return new JsonResponse(array('data' => "$response"));
 
                         } elseif ( $action == 'add' ) {
 
-                            $this->setTestEntities();
+                            $response = $this->setTestEntities($role);
 
-                            return new JsonResponse(array('data' => 'For user "'.$role.'" was add one more entity'));
+                            return new JsonResponse(array('data' => "$response"));
 
                         } elseif ( $action == 'update' ) {
 
@@ -136,16 +143,32 @@ class TestDBController extends AbstractController
 
     }
 
-    public function setTestEntities() {
+    public function setTestEntities($role) {
 
         $entityManager = $this->getDoctrine()->getManager();
 
         $testEntity = new TestEntity();
         $testEntity->setDescription('Description for one more Test object');
 
-        $entityManager->persist($testEntity);
+        try {
+            $entityManager->persist($testEntity);
+            $entityManager->flush();
+            $message = 'For user "'.$role.'" was add one more entity';
+        } catch (\DBALException $e) {
+            // $message = sprintf('DBALException [%i]: %s', $e->getCode(), $e->getMessage());
+            $message = sprintf('Возникла внутренняя ошибка. Пожалуйста, обратитесь к системному администратору.');
+        } catch (\PDOException $e) {
+            // $message = sprintf('PDOException [%i]: %s', $e->getCode(), $e->getMessage());
+            $message = sprintf('Возникла внутренняя ошибка. Пожалуйста, обратитесь к системному администратору.');
+        } catch (\ORMException $e) {
+            // $message = sprintf('ORMException [%i]: %s', $e->getCode(), $e->getMessage());
+            $message = sprintf('Возникла внутренняя ошибка. Пожалуйста, обратитесь к системному администратору.');
+        } catch (\Exception $e) {
+            // $message = sprintf('Exception [%i]: %s', $e->getCode(), $e->getMessage());
+            $message = sprintf('Возникла внутренняя ошибка. Пожалуйста, обратитесь к системному администратору.');
+        }
 
-        $entityManager->flush();
+        return $message;
 
     }
 
@@ -159,15 +182,30 @@ class TestDBController extends AbstractController
 
     }
 
-    public function deleteTestEntity($id) {
+    public function deleteTestEntity($role, $id) {
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        $testEntity = $entityManager->getRepository(TestEntity::class)->find($id);
+        try {
+            $testEntity = $entityManager->getRepository(TestEntity::class)->find($id);
+            $entityManager->remove($testEntity);
+            $entityManager->flush();
+            $message = 'For user "'.$role.'" was delete entity #'.$id;
+        } catch (\DBALException $e) {
+            // $message = sprintf('DBALException [%i]: %s', $e->getCode(), $e->getMessage());
+            $message = sprintf('Возникла внутренняя ошибка. Пожалуйста, обратитесь к системному администратору.');
+        } catch (\PDOException $e) {
+            // $message = sprintf('PDOException [%i]: %s', $e->getCode(), $e->getMessage());
+            $message = sprintf('Возникла внутренняя ошибка. Пожалуйста, обратитесь к системному администратору.');
+        } catch (\ORMException $e) {
+            // $message = sprintf('ORMException [%i]: %s', $e->getCode(), $e->getMessage());
+            $message = sprintf('Возникла внутренняя ошибка. Пожалуйста, обратитесь к системному администратору.');
+        } catch (\Exception $e) {
+            // $message = sprintf('Exception [%i]: %s', $e->getCode(), $e->getMessage());
+            $message = sprintf('Возникла внутренняя ошибка. Пожалуйста, обратитесь к системному администратору.');
+        }
 
-        $entityManager->remove($testEntity);
-
-        $entityManager->flush();
+        return $message;
 
     }
 
