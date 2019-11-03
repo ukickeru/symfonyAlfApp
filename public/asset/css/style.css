@@ -1,0 +1,28 @@
+/*/////////////////////--------------------
+                Common styles
+--------------------/////////////////////*/
+
+/* Warning popup */
+div#popupWaning {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+div#popupWaning > div.top, div.bottom {
+    display: none;
+}
+
+div#popupWaning > embed {
+    display: none;
+}
+
+/*/////////////////////--------------------
+                Auth page
+--------------------/////////////////////*/
+
+/* Login form */
+button#changeLogin {
+    max-width: 50px;
+}

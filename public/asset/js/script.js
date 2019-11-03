@@ -1,91 +1,70 @@
+"use strict";
+
 $(document).ready(function() {
 
-    // Show password field if user send query to auth
-    $('input#LoginFormEmail').on('focus', function() {
-        $('input#tLoginFormPassword').show('450');
-    });
-
-    // Show name field if user forgot password
-    $('a#forgotEmail').on('click', function() {
-        if ($('input#LoginFormEmail').css('display') === 'none') {
-            $('input#LoginFormEmail').show();
-            $('input#LoginFormName').hide();
-            $('a#forgotEmail').html('Войти по имени?');
-        } else {
-            $('input#LoginFormEmail').hide();
-            $('input#LoginFormName').show();
-            $('a#forgotEmail').html('Войти по email?&nbsp;&nbsp;');
-        }
-    });
+    /*!
+     * toggleAttr() jQuery plugin
+     * @link http://github.com/mathiasbynens/toggleAttr-jQuery-Plugin
+     * @description Used to toggle selected="selected", disabled="disabled", checked="checked" etc…
+     * @author Mathias Bynens <http://mathiasbynens.be/>
+     */
+    jQuery.fn.toggleAttr = function(attr) {
+        return this.each(function() {
+            var $this = $(this);
+            $this.attr(attr) ? $this.removeAttr(attr) : $this.attr(attr, attr);
+        });
+    };
 
     /*/////////////////////--------------------
-                    TestDB scripts
+            Message modal & warning popup
     --------------------/////////////////////*/
 
-    let role, action, entityId;
-
-    // Delete testEntity by clicking on cross at last row column
-    // $('th.deleteThisRow > i.fa-times').on('click', function() {
-    //     entityId = parseInt($(this).parent('th').parent('tr').attr('id'));
-    // });
-
-    // Choose row in table
-    $('table#entitiesTable>tbody>tr').on('click', function() {
-
-        if ( ( entityId !== undefined ) && ( entityId !== $(this).attr('id') )  ) {
-            $('tr#'+entityId).removeClass('default-color')
-        }
-
-        if ( $(this).hasClass('default-color') ) {
-            $(this).removeClass('default-color');
-            entityId = undefined;
-            $('h4#displayEntityId').text('');
+    // Showing message
+    window.showMessage = function(title, body, type) {
+        if ( type === 'modal' ) {
+            alertModal(title, body);
+        } else if ( type === 'warning' ) {
+            alertWarning(title, body);
         } else {
-            $(this).addClass('default-color');
-            entityId = $(this).attr('id');
-            $('h4#displayEntityId').text(entityId);
+            alert(title, body);
         }
+    };
 
-    });
-
-    // Choose role
-    $('select#roleSelect > option').on('click', function() {
-        role = $(this).text();
-    });
-
-    // An example of AJAX JSON query to application
-    $('div#actionSelect > button').on('click', function() {
-
-        console.log(role, action, entityId);
-
-        if ( ( role === 'Choose role' ) || ( role === undefined ) ) {
-            alert('Please, choose DB role!');
-            return false;
-        } else if ( entityId === undefined ) {
-            alert('Please, choose an entity!');
-            return false;
+    // Alert modal or popup
+    window.alertModal = function(title, body) {
+        if ( $('div#messageModal').length > 0 ) {
+            $('h4#messageTitle').html(title);
+            $('h5#messageBody').html(body);
+            $('div#messageModal').modal('show');
+        } else {
+            alert(title+'\n\n'+body);
         }
+    };
 
-        role = $("select#roleSelect option:selected").text();
-        action = $(this).attr('action');
-
-        console.log(role, action, entityId);
-
-        var query = JSON.parse('{"role":"'+role+'","action":"'+action+'","entityId":"'+entityId+'"}');
-
-        $.ajax({
-            url: "/test_db",
-            method: "POST",
-            dataType: "json",
-            data: query
-        }).done(function( msg ) {
-            console.log('Success');
-            alert( msg['data'] );
-        }).fail(function( msg ) {
-            console.log('Fail');
-            alert( msg['data'] );
-        });
-
+    // Modal button
+    $('button#messageButton').on('click', function() {
+        $('div#messageModal').modal('hide');
     });
 
+    // Playing sound
+    window.PlaySound = function(soundObj) {
+        let sound = document.getElementById(soundObj);
+        sound.volume = 0.1;
+        if ( sound ) {
+            sound.play();
+        }
+    }
+
+    // Warning popup
+    window.alertWarning = function(title, body) {
+        if ( $('div#popupWaning').length > 0 ) {
+            $('h4#warningTitle').html(title);
+            $('h5#warningBody').html(body);
+            $('div#popupWaning').show(250).delay(3000).hide(250);
+            PlaySound('warningSound');
+        } else {
+            alert(title+'\n\n'+body);
+        }
+    };
+    
 });

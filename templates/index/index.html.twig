@@ -7,46 +7,43 @@
 <div class="container-fluid">
     <div class="row justify-content-center align-items-center vh-100">
         <div class="col-lg-auto col-md-auto col-sm-auto text-center">
-            <!-- Default form login -->
-            <form class="text-center border border-light p-5" action="#!">
+            <!-- Login form -->
+            <form class="text-center border border-light p-5 hoverable" id="loginForm" action="#!">
 
-                <h2 class="mb-5">Альфа-Риелт</h2>
+                <h2 class="mb-5">Альфа-Риэлт</h2>
 
-                <!-- Email -->
-                <input type="email" id="LoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+                <!-- Debug message -->
+                <h2 class="mb-5">{{ message }}</h2>
 
                 <!-- Name -->
-                <input type="name" id="LoginFormName" class="form-control mb-4" placeholder="Фамилия и имя" style="display: none;">
+                <select type="name" class="browser-default custom-select form-control mb-4" id="LoginFormName">
+                    <option>Выберите логин</option>
+                    {% for role in db_roles %}
+                    <option>{{ role }}</option>
+                    {% endfor %}
+                </select>
 
                 <!-- Password -->
-                <input type="password" id="LoginFormPassword" class="form-control mb-4" placeholder="Пароль" style="display: none;">
+                <input type="password" id="LoginFormPassword" class="form-control" placeholder="Пин-код" style="display: none;">
 
-                <div class="d-flex justify-content-around">
-                    <div>
-                        <!-- Remember me -->
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-                            <label class="custom-control-label" for="defaultLoginFormRemember">Запомнить меня</label>
-                        </div>
-                    </div>
-                    <div>
-                        <!-- Forgot password -->
-                        <a class="ml-3" href="#" id="forgotEmail">Войти по имени?</a>
-                    </div>
+                <div class="d-flex">
+                    <!-- Sign in button -->
+                    <button class="btn btn-info btn-block my-4 mx-0" id="formSubmit" type="submit">Получить пин</button>
+                    <!-- Cancel button -->
+                    <button class="btn btn-danger btn-block my-4 ml-1 mr-0 px-0" id="changeLogin" type="button" title="Сменить логин" style="display: none;">&times;</button>
                 </div>
 
-                <!-- Sign in button -->
-                <button class="btn btn-info btn-block my-4 mx-0" type="submit">Войти</button>
-
-                <!-- Register -->
-                <p>Нет доступа?
-                    <a class="ml-1" href="">Регистрация</a>
-                </p>
+                <!-- Issues -->
+                <a class="ml-1" href="">Нет доступа?</a>
 
             </form>
-            <!-- Default form login -->
+            <!-- Login form -->
         </div>
     </div>
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="asset/js/templates/index/index.js"></script>
 {% endblock %}
