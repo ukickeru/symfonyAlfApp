@@ -14,11 +14,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 // Authentication
 use App\Service\AuthService;
 
-class IndexController extends AbstractController
+class LogoutController extends AbstractController
 {
-
     /**
-     * @Route("/", name="index")
+     * @Route("/logout", name="logout")
      */
     public function index(AuthService $authService, Request $request)
     {
@@ -27,20 +26,11 @@ class IndexController extends AbstractController
 
         if ( !$request->isXmlHttpRequest() ) {
             // If client has cookies (he is authenticated), redirect him to user page
-            if ( $authService->validateUser($request) ) {
-                return $this->render('index/index.html.twig', [
-                    'controller_name' => 'IndexController',
-                    'debug_info' => '',
-                    'username' => $authService->userInfo(),
-                ]);
-            } else {
-                return $this->redirectToRoute('user');
-            }
+            return $this->redirectToRoute('login');
         } else {
-            // If AJAX query
-            die();
+            // If client want auth, use AuthService functions
+            return $authService->userLogout($request);
+            // return $this->redirectToRoute('login');
         }
-
     }
-
 }

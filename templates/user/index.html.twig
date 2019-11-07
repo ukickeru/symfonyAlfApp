@@ -1,22 +1,45 @@
-{% extends 'base.html.twig' %}
+{% extends 'userInterface.html.twig' %}
 
 {% block title %}Hello UserController!{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block stylesheets %}
+<link href="/asset/css/templates/user/user.css" rel="stylesheet">
+{% endblock %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% block debug_info %}
+<!--Debug info-->
+<div class="card mb-4 wow fadeIn">
+    <div class="card-body">
+        <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/symfony/project1/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/symfony/project1/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
-    </ul>
-    <h5>Debug info from '../src/Controller/UserController':</h5>
-    <h4>{{ debug_info }}</h4>
+        This friendly message is coming from:
+        <ul>
+            <li>Your controller at <code><a href="{{ '/var/www/symfony/project1/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
+            <li>Your template at <code><a href="{{ '/var/www/symfony/project1/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
+        </ul>
+        <h5>Debug info from '../src/Controller/{{ controller_name }}':</h5>
+        <h4>{{ debug_info }}</h4>
+    </div>
 </div>
+<!--Debug info-->
+<!-- Test DB connection button -->
+<div class="card mb-4 wow fadeIn">
+    <div class="card-body d-flex align-items-center">
+        <h4 class="mr-3 mb-0">Нажмите для тестирования подключения к БД с данными пользователя:</h4>
+        <button type="button" class="btn btn-info" id="testDBConn">Тест</button>
+    </div>
+</div>
+<!-- Test DB connection button -->
+<!-- Logout button -->
+<div class="card mb-8 wow fadeIn">
+    <div class="card-body d-flex align-items-center">
+        <h4 class="mr-3 mb-0">Нажмите для выхода:</h4>
+        <button type="button" class="btn btn-danger" id="logout">Выйти</button>
+    </div>
+</div>
+<!-- Logout button -->
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="asset/js/templates/user/user.js"></script>
 {% endblock %}

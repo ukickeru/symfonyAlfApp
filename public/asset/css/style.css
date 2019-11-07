@@ -2,20 +2,116 @@
                 Common styles
 --------------------/////////////////////*/
 
-/* Warning popup */
-div#popupWaning {
+body {
+    position: relative;
+    min-height: 100vh;
+    /* background-color: #efefef; */
+}
+
+/*------------------ Main interface /*------------------*/
+
+.sidebar-fixed {
+    height: 100vh;
+    width: 270px;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    z-index: 1040;
+    background-color: #fff;
+    padding: 0 1.5rem 1.5rem
+}
+
+.sidebar-fixed .list-group .active {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    -webkit-border-radius: 5px;
+    border-radius: 5px
+}
+
+.sidebar-fixed .logo-wrapper {
+    padding: 0.5rem
+}
+
+.sidebar-fixed .logo-wrapper img {
+    max-height: 50px
+}
+
+a.navbar-brand {
     display: none;
+}
+
+@media (min-width:1200px) {
+    .navbar, .page-footer, main {
+        padding-left: 270px
+    }
+}
+
+@media (max-width:1199.98px) {
+    .sidebar-fixed {
+        display: none
+    }
+}
+
+@media (max-width:992px) {
+    a.navbar-brand {
+        display: block;
+    }
+}
+
+footer {
     position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* margin-bottom:-24px; */
+}
+
+/*------------------ Popups /*------------------*/
+
+/* Message modal */
+div#messageModal {
+    z-index: 1042;
+}
+
+div.modal-backdrop {
+    z-index: 1041;
+}
+
+/* Warning popup */
+div#popupWarningWrapper {
+    position: fixed;
     right: 0;
     bottom: 0;
+    width: auto;
+    height: auto;
+    max-height: 100% !important;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    z-index: 1043;
 }
 
-div#popupWaning > div.top, div.bottom {
+div.popupWarning {
+    display: none;
+    /* position: absolute; */
+    position: relative;
+    right: 0;
+    bottom: 0;
+    z-index: 1044;
+    /* background-color: RGBA(255,255,255,.8); */
+    color: #fff;
+}
+
+div.popupWarning > div.top, div.bottom {
     display: none;
 }
 
-div#popupWaning > embed {
+div.popupWarning > embed {
     display: none;
+}
+
+div.popupWarning > div > h4, h5 {
+    /* font-weight: 400; */
 }
 
 /*/////////////////////--------------------

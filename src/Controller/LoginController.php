@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+// Default
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,10 +14,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 // Authentication
 use App\Service\AuthService;
 
-class UserController extends AbstractController
+class LoginController extends AbstractController
 {
     /**
-     * @Route("/user", name="user")
+     * @Route("/login", name="login")
      */
     public function index(AuthService $authService, Request $request)
     {
@@ -26,21 +27,26 @@ class UserController extends AbstractController
         if ( !$request->isXmlHttpRequest() ) {
             // If client has cookies (he is authenticated), redirect him to user page
             if ( $authService->validateUser($request) ) {
-                return $this->render('user/index.html.twig', [
-                    'controller_name' => 'UserController',
-                    'debug_info' => $authService->sessionInfo(),
-                    'username' => $authService->userInfo(),
-                ]);
+                return $this->redirectToRoute('index');
             } else {
-                return $this->redirectToRoute('login');
+                // If common request
+                return $this->render('login/index.html.twig', [
+                    'page_name' => ' - авторизация',
+                    // 'message' => $authService->validateUser($request),
+                    'message' => '',
+                    'db_roles' => $authService->selectRoles(),
+                ]);
             }
         } else {
-            // If testing client DB connection
-            if ( $request->request->get('type') == 'testDBConn' ) {
-                return $authService->getUserDBConn();
+            // If client want auth, use AuthService functions
+            if ( $request->request->get('type') === 'auth' ) {
+                $message = $authService->index($request);
+                return $message;
             } else {
+                // If AJAX query without terminated parameters
                 die();
             }
         }
+
     }
 }

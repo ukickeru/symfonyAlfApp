@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid px-0">
+
+    <!--Main Navigation-->
+    <header>
+
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+            <div class="container-fluid">
+
+                <!-- Brand -->
+                <a class="navbar-brand waves-effect" href="#">
+                    <strong class="red-text">Альфа-Риэлт</strong>
+                </a>
+
+                <!-- Collapse -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <!-- Left -->
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link waves-effect" href="/">Главная
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="/user">Профиль</a>
+                        </li>
+                    </ul>
+
+                    <!-- Right -->
+                    <ul class="navbar-nav nav-flex-icons">
+                        <!-- <li class="nav-item">
+                            <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a href="/user" class="nav-link border border-light rounded waves-effect">
+                                <i class="far fa-user"></i>{{ username }}
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+        <!-- Navbar -->
+
+        <!-- Sidebar -->
+        <div class="sidebar-fixed position-fixed">
+
+            <a class="logo-wrapper waves-effect my-4" href="/">
+                <img src="/asset/img/logo-full.png" class="img-fluid" alt="">
+            </a>
+
+            <div class="list-group list-group-flush">
+                <a href="/" class="list-group-item active waves-effect">
+                    <i class="fas fa-chart-pie mr-3"></i>Главная
+                </a>
+                <a href="/user" class="list-group-item list-group-item-action waves-effect">
+                    <i class="fas fa-user mr-3"></i>Профиль
+                </a>
+            </div>
+
+        </div>
+        <!-- Sidebar -->
+
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main class="pt-5 mx-lg-5 pb-5">
+        <div class="container-fluid mt-5 pb-5">
+
+            {% block debug_info %}{% endblock %}
+
+        </div>
+    </main>
+    <!--Main layout-->
+
+    <!--Footer-->
+    <footer class="page-footer text-center font-small blue darken-2 mt-4 wow fadeIn">
+
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            © 2019:
+            <a href="https://alfarielt.ru/" target="_blank"> Альфа-Риэлт </a>
+        </div>
+        <!--/.Copyright-->
+
+    </footer>
+    <!--/.Footer-->
+
+</div>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

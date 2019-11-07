@@ -9,10 +9,10 @@ framework:
         handler_id: null
         cookie_secure: auto
         cookie_samesite: lax
+        cookie_lifetime: 10800
+        gc_maxlifetime: 10800
 
     #esi: true
     #fragments: true
     php_errors:
         log: true
-
-    ide: 'atom://open?url=file://%%f&line=%%l'

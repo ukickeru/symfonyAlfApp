@@ -22,4 +22,6 @@
 *.iml
 /config/parameters.yml
 /config/packages/doctrine.yaml
+.env
+.env.test
 ###< Custom ###

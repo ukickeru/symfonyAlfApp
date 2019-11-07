@@ -20,11 +20,11 @@ $(document).ready(function() {
     --------------------/////////////////////*/
 
     // Showing message
-    window.showMessage = function(title, body, type) {
+    window.showMessage = function(title, body, type, warningType) {
         if ( type === 'modal' ) {
             alertModal(title, body);
         } else if ( type === 'warning' ) {
-            alertWarning(title, body);
+            alertWarning(title, body, warningType);
         } else {
             alert(title, body);
         }
@@ -53,18 +53,47 @@ $(document).ready(function() {
         if ( sound ) {
             sound.play();
         }
-    }
+    };
 
     // Warning popup
-    window.alertWarning = function(title, body) {
-        if ( $('div#popupWaning').length > 0 ) {
-            $('h4#warningTitle').html(title);
-            $('h5#warningBody').html(body);
-            $('div#popupWaning').show(250).delay(3000).hide(250);
+    // This function clone warningPopup DOM element, fill it with text
+    // show, hide and then remove it
+    window.alertWarning = function(title, body, warningType) {
+
+        let popupWarning = $('div.popupWarning').first();
+
+        if ( popupWarning.length > 0 ) {
+
+            let warningStyle = '';
+
+            switch (warningType) {
+              case 'success':
+                warningStyle = 'success-color';
+                break;
+              case 'warning':
+                warningStyle = 'warning-color';
+                break;
+              case 'danger':
+                warningStyle = 'danger-color';
+                break;
+              default:
+                warningStyle = 'info-color';
+            }
+
+            popupWarning.clone().appendTo('div#popupWarningWrapper');
+            popupWarning = $('div.popupWarning').last();
+            popupWarning.addClass(warningStyle);
+            popupWarning.children('div.center').children('h5#warningBody').html(body);
+
+            popupWarning.fadeIn(250).delay(3000).fadeOut(250);
+            setTimeout(function() {
+                popupWarning.remove();
+            }, 4000);
             PlaySound('warningSound');
+
         } else {
             alert(title+'\n\n'+body);
         }
     };
-    
+
 });
