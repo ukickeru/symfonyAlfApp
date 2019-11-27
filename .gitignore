@@ -24,4 +24,5 @@
 /config/packages/doctrine.yaml
 .env
 .env.test
+.php_cs*
 ###< Custom ###

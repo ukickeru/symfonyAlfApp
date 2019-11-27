@@ -29,7 +29,11 @@ class UserController extends AbstractController
                 return $this->render('user/index.html.twig', [
                     'controller_name' => 'UserController',
                     'debug_info' => $authService->sessionInfo(),
+                    'request_path' => $request->getPathInfo(),
                     'username' => $authService->userInfo(),
+                    'request_parameters' => $request->query->all(),
+                    'request_all' => dump($request),
+                    'custom_debug_field' => $authService->usefullConfig(),
                 ]);
             } else {
                 return $this->redirectToRoute('login');

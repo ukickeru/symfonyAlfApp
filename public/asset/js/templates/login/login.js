@@ -6,12 +6,9 @@ $(document).ready(function() {
     let role = $('#LoginFormName')[0].value;
     let pin;
 
-    const LoginFormNameInput = document.querySelector('LoginFormName');
-
     // Choose role
     $('select#LoginFormName').on('change', function() {
         role = $(this)[0].value;
-        console.log($(this)[0].value);
     });
 
     // Cancel (change) login
@@ -58,12 +55,18 @@ $(document).ready(function() {
             if ( typeof( msg['signin'] ) !== "undefined" && msg['signin'] !== null ) {
                 location.reload();
             } else {
-                showMessage( msg['title'], msg['body'], msg['type'], msg['warningType'] );
+                showMessage( msg['title'], msg['body'], msg['messageType'], msg['notifyType'] );
             }
         }).fail(function( msg ) {
-            showMessage( msg['title'], msg['body'], msg['type'], msg['warningType'] );
+            showMessage( msg['title'], msg['body'], msg['messageType'], msg['notifyType'] );
         });
 
     };
+
+    // If user don't have access to system
+    $('a#noAccess').on('click', function(e) {
+        e.preventDefault();
+        showMessage('Нет доступа к системе?', 'Если Вы не нашли свой логин с списке или при попытке входа возникает ошибка, пожалуйста, обратитесь к штатному программисту:<br><a href="tel:+7(999)999-99-99">+7(999)999-99-99</a><br>Спасибо за понимание.', 'modal');
+    });
 
 });

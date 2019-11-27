@@ -84,6 +84,7 @@ div#popupWarningWrapper {
     height: auto;
     max-height: 100% !important;
     overflow-y: hidden;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -106,12 +107,56 @@ div.popupWarning > div.top, div.bottom {
     display: none;
 }
 
+div.popupWarning > div > h5 > a {
+    color: #fff;
+    font-style: italic;
+}
+
+div.popupWarning > div > h5 > a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
 div.popupWarning > embed {
     display: none;
 }
 
 div.popupWarning > div > h4, h5 {
     /* font-weight: 400; */
+}
+
+div.popupWarning > div.timeLeft {
+    height: 3px;
+    border-radius: 0;
+    background-color: rgba(255, 255, 255, .4);
+}
+
+div.popupWarning > div.timeLeft > div.progress-bar {
+    width: 0%;
+    background-color: rgba(255,255,255,.7);
+    transition-timing-function: linear;
+}
+
+ div.popupWarning > div.closeButton {
+     position: absolute;
+     top: 0;
+     right: 0;
+     margin-top: -8px;
+     margin-right: 4px;
+     width: 14px;
+     height: 14px;
+ }
+
+div.popupWarning > div.closeButton > a.closeNotify {
+    font-size: 1.5rem;
+    margin: 0;
+    cursor: default;
+    opacity: .6;
+    color: #fff;
+}
+
+div.popupWarning > div.closeButton > a.closeNotify:hover {
+    opacity: 1;
 }
 
 /*/////////////////////--------------------

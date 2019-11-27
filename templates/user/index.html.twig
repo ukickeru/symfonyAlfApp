@@ -17,8 +17,16 @@
             <li>Your controller at <code><a href="{{ '/var/www/symfony/project1/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
             <li>Your template at <code><a href="{{ '/var/www/symfony/project1/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
         </ul>
-        <h5>Debug info from '../src/Controller/{{ controller_name }}':</h5>
-        <h4>{{ debug_info }}</h4>
+        <hr>
+        <h5>Debug info from '../src/Controller/{{ controller_name }}': {{ debug_info }}</h5>
+        <hr>
+        <h5>Request parameter: {{ request_all }}</h5>
+        <hr>
+        <h5>Request path: {{ request_path }}</h5>
+        <hr>
+        <h5>Request parameters: {% for parameter in request_parameters %} {{ parameter }} {% endfor %}</h5>
+        <hr>
+        <h5>Custom debug field: {{ custom_debug_field }}</h5>
     </div>
 </div>
 <!--Debug info-->
@@ -26,7 +34,7 @@
 <div class="card mb-4 wow fadeIn">
     <div class="card-body d-flex align-items-center">
         <h4 class="mr-3 mb-0">Нажмите для тестирования подключения к БД с данными пользователя:</h4>
-        <button type="button" class="btn btn-info" id="testDBConn">Тест</button>
+        <button type="button" class="btn btn-info disabled" id="testDBConn">Тест</button>
     </div>
 </div>
 <!-- Test DB connection button -->
