@@ -16,6 +16,24 @@ $(document).ready(function() {
     };
 
     /*/////////////////////--------------------
+                    Sidebar menu
+    --------------------/////////////////////*/
+
+    // Toggle sidebar menu
+    window.$('.toggleSidebarMainMenu').on('click', function() {
+        let sidebarMenu = $('div#sidebarMainMenu');
+        let navbar = $('nav');
+        let main = $('main');
+        if ( sidebarMenu.css('display') === 'none' ) {
+            sidebarMenu.toggle( 'slide', { easing: 'linear' }, 200 )
+            navbar.css('padding-left', '270px');
+        } else {
+            sidebarMenu.toggle( 'slide', { easing: 'linear' }, 200 )
+            navbar.css('padding-left', '0');
+        }
+    });
+
+    /*/////////////////////--------------------
             Message modal & warning popup
     --------------------/////////////////////*/
 
@@ -149,6 +167,16 @@ $(document).ready(function() {
         }
     };
 
+    // Pause timer when hovering over the notification
+    // window.$('body').on('mouseover', 'div#popupWarningWrapper > div.popupWarning', function() {
+    //     TODO
+    // });
+
+    // Continuation of the timer when removing the mouse from the notification
+    // window.$('body').on('mouseout', 'div#popupWarningWrapper > div.popupWarning', function() {
+    //     TODO
+    // });
+
     // Closing notifications by clicking on "X" button
     // handler binding happens dynamically using page's 'body' element
     window.$('body').on('click', 'div#popupWarningWrapper > div.popupWarning > div.closeButton > a.closeNotify', function(e) {
@@ -157,5 +185,20 @@ $(document).ready(function() {
         $(this).parent('div.closeButton').parent('div.popupWarning').remove();
         clearTimeout(notifyProgressTimerArray[currentNotifyTimerId]);
     });
+
+    /*/////////////////////--------------------
+                Service functions
+    --------------------/////////////////////*/
+
+    // Register service worker
+    // if ('serviceWorker' in navigator) {
+    //     window.addEventListener('load', function() {
+    //         navigator.serviceWorker.register('/service_worker.js', {scope: '/'}).then(() => {
+    //             console.log('Service Worker registered successfully.');
+    //         }).catch(error => {
+    //             console.log('Service Worker registration failed:', error);
+    //         });
+    //     });
+    // }
 
 });

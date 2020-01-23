@@ -7,8 +7,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 // HTTP Foundation
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 // Authentication
 use App\Service\AuthService;
@@ -31,9 +29,9 @@ class UserController extends AbstractController
                     'debug_info' => $authService->sessionInfo(),
                     'request_path' => $request->getPathInfo(),
                     'username' => $authService->userInfo(),
-                    'request_parameters' => $request->query->all(),
-                    'request_all' => dump($request),
-                    'custom_debug_field' => $authService->usefullConfig(),
+                    'request_parameters' => '',//$request->query->all(),
+                    'request_all' => '',//dump($request),
+                    'custom_debug_field' => '',//$authService->usefullConfig(),
                 ]);
             } else {
                 return $this->redirectToRoute('login');

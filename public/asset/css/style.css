@@ -10,14 +10,27 @@ body {
 
 /*------------------ Main interface /*------------------*/
 
+main {
+    padding-left: 0 !important;
+    transition: background .5s ease-in-out, padding .5s ease-in-out;
+}
+
 .sidebar-fixed {
-    height: 100vh;
+    height: 100%;
     width: 270px;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     z-index: 1040;
     background-color: #fff;
-    padding: 0 1.5rem 1.5rem
+    padding: 0 1.5rem 1.5rem;
+    display: none;
+    overflow-y: scroll;
+}
+
+.sidebar-fixed .sidebarElementsWrapper {
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 75px;
 }
 
 .sidebar-fixed .list-group .active {
@@ -35,8 +48,54 @@ body {
     max-height: 50px
 }
 
+.sidebar-fixed div#serviceMenuButtons {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar-fixed div#serviceMenuButtons > button.btn {
+    margin: 0;
+    padding: 10px 15px;
+    font-size: 20px;
+}
+
+nav.navbar {
+    padding-left: 0;
+    transition: padding .2s linear !important;
+}
+
 a.navbar-brand {
     display: none;
+    position: absolute;
+    right: 0;
+    width: initial;
+}
+
+a.navbar-brand > img {
+    height: 40px !important;
+    z-index: 1039;
+}
+
+button.toggleSidebarMainMenu {
+    z-index: 1040;
+}
+
+a.nav-link.toggleSidebarMainMenu {
+    max-height: 40px;
+    z-index: 1040;
+}
+
+div#sidebarMainMenuLinks > a > i {
+    width: 18px;
+    text-align: center;
+}
+
+form#navbarSearch {
+    width: 300px;
+    height: 42px;
 }
 
 @media (min-width:1200px) {

@@ -4,7 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    ALL_CURRENT_ROUTES:
+   'app.PRIMARY_QUERY_CHECK': true # Centralized request's check before calling the controller method
+   'app.ALL_CURRENT_ROUTES':       # Defines current app routes for user groups
         'user':
             - /
             - /user
@@ -12,6 +13,9 @@ parameters:
             - /logout
         'admin':
             - /admin
+   'app.ADMIN_DATA':               # Defines admin login & password
+        'login': 'rootov'
+        'password': '7YRWcYqEfUTTMrTj'
 
 services:
     # default configuration for services in *this* file
@@ -36,15 +40,68 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    # CUSTOM SERVICES (later it can be combined into a bundle)
+
+    # Root directory for all of app services
     App\Service\:
         resource: '../src/Service'
 
-    App\Service\SOLID\:
-        resource: '../src/Service/SOLID'
+    # ------------------------------------------------------
+    # Service that responsible for getting app configuration
+    # ------------------------------------------------------
 
     App\Service\Config\:
         resource: '../src/Service/Config'
-        # bind:
-        #     $someParam: '%ALL_CURRENT_ROUTES%'
-        # arguments: [ '%$ALL_CURRENT_ROUTES%' ]
-        #     $allCurrentRoutes: '%ALL_CURRENT_ROUTES%'
+
+    # ----------------------------------------------------------------------------------
+    # Service that perform pre-controller operations, for example: 'primary query check'
+    # ----------------------------------------------------------------------------------
+
+    App\Service\Init\:
+        resource: '../src/Service/Init'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, priority: 254 }
+
+    # -------------------------------------------------------------------------------------
+    # Services that responsible for request recognition and check some important parameters
+    # -------------------------------------------------------------------------------------
+
+    # Starts request recognition
+    App\Service\Request\CheckRoute\:
+        resource: '../src/Service/Request/CheckRoute'
+
+    # Check if route exists
+    App\Service\Request\CheckRoute\CheckRouteExistance\:
+        resource: '../src/Service/Request/CheckRoute/CheckRouteExistance'
+
+    # Get current routes config (routes list & access rights)
+    App\Service\Request\CheckRoute\GetRoutesConfig\:
+        resource: '../src/Service/Request/CheckRoute/GetRoutesConfig'
+        bind:
+            $allCurrentRoutes: '%app.ALL_CURRENT_ROUTES%'
+
+    # Firewall, that checks for a token
+    App\Service\Request\UserAuth\CheckAuth\:
+        resource: '../src/Service/Request/UserAuth/CheckAuth'
+
+    # Change user status (create, delete token)
+    App\Service\Request\UserAuth\ChangeAuthStatus\:
+        resource: '../src/Service/Request/UserAuth/ChangeAuthStatus'
+
+
+
+    # -------------------------------------------------------------------------------------
+    # Services that responsible for request recognition and check some important parameters
+    # -------------------------------------------------------------------------------------
+
+    # Send response to user
+    App\Service\Response\SendResponse\:
+        resource: '../src/Service/Response/SendResponse/'
+
+    # -------------------------------------------------------------------------------------
+    # Technical services
+    # -------------------------------------------------------------------------------------
+
+    # Class for app debuging
+    App\Service\Dev\:
+        resource: '../src/Service/Dev/'

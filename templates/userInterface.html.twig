@@ -13,44 +13,82 @@
 
         <!-- Navbar -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+
             <div class="container-fluid">
 
+                <!-- Sidebar toggler -->
+                <button class="navbar-toggler toggleSidebarMainMenu" type="button" aria-label="Toggle sidebar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
                 <!-- Brand -->
-                <a class="navbar-brand waves-effect" href="#">
-                    <strong class="red-text">Альфа-Риэлт</strong>
+                <a class="navbar-brand waves-effect p-0" href="#">
+                    <!--<strong class="red-text">Альфа-Риэлт</strong>-->
+                    <img src="/asset/img/logo.png" alt="">
                 </a>
 
                 <!-- Collapse -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <!--<button class="navbar-toggler" type="button" data-toggle="collapse"-->
+                <!--        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"-->
+                <!--        aria-expanded="false" aria-label="Toggle navigation">-->
+                <!--    <span class="navbar-toggler-icon"></span>-->
+                <!--</button>-->
 
                 <!-- Links -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <!-- Left -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link waves-effect" href="/">Главная
-                                <span class="sr-only">(current)</span>
+                        <li class="nav-item mr-2">
+                            <a class="nav-link waves-effect toggleSidebarMainMenu" href="#">
+                                <span class="navbar-toggler-icon"></span>
                             </a>
                         </li>
+                        <!--<li class="nav-item active">-->
+                        <!--    <a class="nav-link waves-effect" href="/">Главная-->
+                        <!--        <span class="sr-only">(current)</span>-->
+                        <!--    </a>-->
+                        <!--</li>-->
+                        <!--<li class="nav-item">-->
+                        <!--    <a class="nav-link waves-effect" href="/user">Профиль</a>-->
+                        <!--</li>-->
                         <li class="nav-item">
-                            <a class="nav-link waves-effect" href="/user">Профиль</a>
+                            <!-- Search form -->
+                            <form class="form-inline md-form form-sm m-0 ml-3" id="navbarSearch">
+                                <input class="form-control form-control-sm mr-3 mb-0 w-75" type="text"
+                                       placeholder="Поиск"
+                                       aria-label="Поиск">
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                            </form>
                         </li>
                     </ul>
 
                     <!-- Right -->
                     <ul class="navbar-nav nav-flex-icons">
-                        <!-- <li class="nav-item">
-                            <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                        </li> -->
+                        <!--<li class="nav-item">-->
+                        <!--    <a href="/user" class="nav-link border border-light rounded waves-effect">-->
+                        <!--        <i class="far fa-user"></i>{{ username }}-->
+                        <!--    </a>-->
+                        <!--</li>-->
                         <li class="nav-item">
-                            <a href="/user" class="nav-link border border-light rounded waves-effect">
-                                <i class="far fa-user"></i>{{ username }}
-                            </a>
+                            <div class="btn-group" role="group">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button id="btnGroupDrop1" type="button"
+                                            class="btn btn-link dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        {{ username }}
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                        <a class="dropdown-item" href="/user">
+                                            <i class="far fa-user mr-3"></i>Профиль
+                                        </a>
+                                        <hr class="grey lighten-2 m-0 p-0 w-100">
+                                        <a class="dropdown-item text-danger" href="/logout">
+                                            <i class="fas fa-sign-out-alt mr-3"></i>Выйти
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
 
@@ -61,19 +99,37 @@
         <!-- Navbar -->
 
         <!-- Sidebar -->
-        <div class="sidebar-fixed position-fixed">
+        <div class="sidebar-fixed position-fixed" id="sidebarMainMenu">
 
-            <a class="logo-wrapper waves-effect my-4" href="/">
-                <img src="/asset/img/logo-full.png" class="img-fluid" alt="">
-            </a>
+            <div class="sidebarElementsWrapper">
 
-            <div class="list-group list-group-flush">
-                <a href="/" class="list-group-item active waves-effect">
-                    <i class="fas fa-chart-pie mr-3"></i>Главная
+                <a class="logo-wrapper waves-effect my-4" href="/">
+                    <img src="/asset/img/logo-full.png" class="img-fluid" alt="">
                 </a>
-                <a href="/user" class="list-group-item list-group-item-action waves-effect">
-                    <i class="fas fa-user mr-3"></i>Профиль
-                </a>
+
+                <div class="list-group list-group-flush" id="sidebarMainMenuLinks">
+                    <a href="/" class="list-group-item active waves-effect">
+                        <i class="fas fa-chart-pie mr-3"></i>Главная
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-home mr-3"></i>Объекты
+                    </a>
+                    <a href="/user" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-user mr-3"></i>Профиль
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action waves-effect">
+                        <i class="fas fa-info mr-3"></i>Справка
+                    </a>
+                </div>
+
+                <!--  Service  -->
+                <div class="fixed-bottom" id="serviceMenuButtons">
+                    <button type="button" class="btn btn-link waves-effect waves-light" data-toggle="modal"
+                            data-target="#debugModal"><i class="fas fa-terminal"></i></button>
+                    <button type="button" class="btn btn-link waves-effect waves-light" data-toggle="modal"
+                            data-target="#"><i class="fas fa-cog"></i></button>
+                </div>
+
             </div>
 
         </div>
@@ -97,7 +153,7 @@
 
         <!--Copyright-->
         <div class="footer-copyright py-3">
-            © 2019:
+            © 2019-2020:
             <a href="https://alfarielt.ru/" target="_blank"> Альфа-Риэлт </a>
         </div>
         <!--/.Copyright-->

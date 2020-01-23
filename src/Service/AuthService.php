@@ -2,12 +2,6 @@
 
 namespace App\Service;
 
-// Default
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-// Logger service
-use Psr\Log\LoggerInterface;
-
 // HTTP Foundation
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,40 +45,9 @@ class AuthService
 
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $eM) {
-        $this->entityManager = $eM;
-    }
-
-    /*/////////////////////--------------------
-            important debug functions
-    --------------------/////////////////////*/
-
-    public function usefullSOLID()
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $testVar = new SOLIDService0();
-
-        return $this->returnSOLID($testVar);
-    }
-
-    public function returnSOLID(SOLIDInterface $solid)
-    {
-        $null = null;
-
-        return $solid->TestOutputFormat($null);
-    }
-
-    public function usefullConfig()
-    {
-        $testVar = new WebAppRoutesService();
-        // $testVar = $WebAppRoutesService;
-
-        return $this->returnConfig($testVar);
-    }
-
-    public function returnConfig(WebAppRoutesInterface $config)
-    {
-        // $config = new WebAppRoutesInterface();
-        return $config->getRoutesList();
+        $this->entityManager = $entityManager;
     }
 
     /*/////////////////////--------------------
@@ -131,7 +94,9 @@ class AuthService
 
         foreach ($list as $key => $value) {
             foreach ($value as $role => $roleName) {
-                $rolesList[] = $roleName;
+                if (preg_match('/[^a-zA-Z0-9-_]/', $roleName)) {
+                    $rolesList[] = $roleName;
+                }
             }
         }
 
@@ -334,7 +299,7 @@ class AuthService
         $password = $session->get('password');
         $SESSID = $session->getId();
         $debugInfo = "Session (ID: $SESSID): ";
-        $debugInfo .= 'Username: '.$username.' / DB Password: '.$password;
+        $debugInfo .= 'Username: ' . $username . ' / DB Password: ' . $password;
 
         return $debugInfo;
     }
